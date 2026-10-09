@@ -38,7 +38,7 @@ Tesseract's `tessdata` directory. Check `tesseract --list-langs` for both langua
 
 ## Review an announcement
 
-1. Paste text or upload a PNG, JPG, or PDF. Set the announcement date, or mark it unknown.
+1. Open **New announcement** in the sidebar. Paste text or upload a PNG, JPG, or PDF. Set the announcement date, or mark it unknown.
 2. Load the source. Review OCR warnings and correct the source text before analysis.
 3. Analyze locally. If Ollama fails, complete the manual entry form.
 4. Edit the extracted fields and choose the intended deadline. An empty deadline remains unknown.
@@ -64,7 +64,7 @@ Use **Backup & setup** to prepare a portable ZIP containing activities, history,
 available original files, and organization. Recovery validates the backup and adds copies
 after confirmation; it never replaces existing activities. Recovering twice creates duplicates.
 Backups are limited to 50 MB. For larger collections, stop the app and copy the entire data
-directory. This tab also checks local prerequisites and provides usage help.
+directory. This page also checks local prerequisites and provides usage help.
 
 Existing databases upgrade additively. Extracted announcement fields and the original contract
 stay separate from personal status and notes. See [production features](docs/production-features.md)
@@ -122,3 +122,11 @@ Do not label a release `demo-v1` until the demo laptop passes a fresh-clone,
 real-model, Wi-Fi-off run.
 
 The [submission draft](docs/submission-draft.md) records known disclosures and missing video, team, and public-repository information from the organizer slides.
+
+## Frontend design
+
+The workspace uses a responsive sidebar, task summaries, attention notices, compact filters, and a four-step announcement review. Confirmed revisions show saved and new values side by side; the edit form remains available in an accordion. Motion is brief and respects reduced-motion preferences. All fonts and widgets work locally.
+
+Requires Streamlit 1.65 or newer. After upgrading, restart the app to load the updated theme and imported UI modules. See [design system](DESIGN.md) for tokens, GitHub inspirations, and UX decisions.
+
+Frontend verification: 71 tests pass, including navigation, revision confirmation, draft retention after review, discard/cancel, filters, and HTML escaping. Desktop and mobile browser checks used isolated synthetic fixtures; the real local AI/OCR pipeline was not re-benchmarked for this visual redesign.

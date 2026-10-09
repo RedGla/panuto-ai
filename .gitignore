@@ -5,3 +5,7 @@ __pycache__/
 data/
 .env
 work/
+
+# Local browser and design verification artifacts
+.playwright-mcp/
+.impeccable/review/

@@ -2,7 +2,7 @@ from datetime import date
 import db
 import pipeline
 from streamlit.testing.v1 import AppTest
-from test_app import APP, element, review
+from test_app import APP, element, review, navigate
 from test_core import task
 from ingestion import ingest_text
 
@@ -14,6 +14,7 @@ def test_manual_entry_without_model_and_organization(tmp_path,monkeypatch):
         raise AssertionError("Manual entry must not call the model")
     monkeypatch.setattr(pipeline, "extract_task", forbidden)
     app = AppTest.from_file(str(APP)).run()
+    navigate(app, "New announcement")
     element(app.button, "Add task manually").click().run()
     element(app.text_input, "Subject").set_value("Physics")
     element(app.text_input, "Activity").set_value("Lab report")
@@ -21,6 +22,7 @@ def test_manual_entry_without_model_and_organization(tmp_path,monkeypatch):
     element(app.checkbox, "I reviewed the fields and deadline, including any unknown date.").check().run()
     element(app.button, "Save as new activity").click().run()
     assert not app.exception
+    navigate(app, "Dashboard")
     element(app.selectbox, "Status").select("Done")
     element(app.selectbox, "Priority").select("High")
     element(app.text_area, "Personal notes").set_value("Review vectors")
@@ -32,6 +34,7 @@ def test_manual_entry_without_model_and_organization(tmp_path,monkeypatch):
     assert any("No activities match" in item.value for item in app.info)
     element(app.text_input, "Search activities").set_value("vectors").run()
     assert any("Physics" in item.label for item in app.expander)
+    navigate(app, "Backup & setup")
     element(app.button, "Prepare backup").click().run()
     assert not app.exception and app.session_state["backup_download"].startswith(b"PK")
 
@@ -75,6 +78,7 @@ def test_backup_recovery_ui_requires_confirmation(tmp_path,monkeypatch):
                         lambda label, **kwargs: Upload() if label == "Recover a Panuto backup" else None)
     app = AppTest.from_file(str(APP)).run()
     assert not app.exception
+    navigate(app, "Backup & setup")
     assert element(app.button, "Recover backup").disabled
     assert len(db.list_tasks()) == 1
     element(app.checkbox, "Add these backup activities to my data").check().run()
@@ -90,7 +94,9 @@ def test_unavailable_local_setup_preserves_dashboard(tmp_path,monkeypatch):
     monkeypatch.setattr(diagnostics, "check_setup", lambda: [
         dict(name="Local model", ok=False, detail="Start Ollama. Manual entry remains available.")])
     app = AppTest.from_file(str(APP)).run()
+    navigate(app, "Backup & setup")
     element(app.button, "Check local setup").click().run()
     assert not app.exception
     assert any("Start Ollama" in item.value for item in app.warning)
+    navigate(app, "New announcement")
     assert element(app.button, "Add task manually")

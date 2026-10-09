@@ -11,7 +11,15 @@ APP = Path(__file__).resolve().parents[1]/"app.py"
 def element(items,label):
     return next(item for item in items if item.label == label)
 
+def navigate(app, page):
+    keys = {"Dashboard": "nav_space_dashboard", "New announcement": "nav_add_comment", "Backup & setup": "nav_settings"}
+    app.button(key=keys[page]).click().run()
+    assert not app.exception
+    return app
+
+
 def load(app,text):
+    navigate(app, "New announcement")
     element(app.text_area,"Announcement text").set_value(text)
     element(app.date_input,"Announcement date").set_value(date(2026,10,12))
     element(app.button,"Load source").click().run()
@@ -44,8 +52,10 @@ def test_confirm_revision_and_restart(tmp_path,monkeypatch):
                       {"text":"include data dictionary","number":None}])
     load(app,"Revision announcement")
     review(app,date(2026,10,23))
-    assert any("deadline" in item.value for item in app.warning)
-    assert any("data dictionary" in item.value for item in app.success)
+    comparison = next(item.value for item in app.get("html") if "What changed" in item.value)
+    assert "2026-10-16" in comparison and "2026-10-23" in comparison
+    assert "data dictionary" in comparison
+    assert "300" in comparison and "500" in comparison
     element(app.checkbox,"I reviewed the fields and deadline, including any unknown date.").check().run()
     element(app.button,"Use new").click().run()
     assert not app.exception

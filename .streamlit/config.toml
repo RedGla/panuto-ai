@@ -1,5 +1,32 @@
 [server]
 address = "127.0.0.1"
 maxUploadSize = 50
+
 [browser]
 gatherUsageStats = false
+
+[theme]
+base = "light"
+primaryColor = "#286248"
+backgroundColor = "#FAFAF5"
+secondaryBackgroundColor = "#F0F2E9"
+textColor = "#20382F"
+borderColor = "#DCDED5"
+showWidgetBorder = true
+showSidebarBorder = false
+baseRadius = "12px"
+buttonRadius = "8px"
+font = "sans-serif"
+headingFont = "serif"
+baseFontSize = 16
+headingFontSizes = ["2.8rem", "1.75rem", "1.3rem", "1.1rem"]
+headingFontWeights = [600, 600, 600, 600]
+linkColor = "#286248"
+
+[theme.sidebar]
+backgroundColor = "#213C30"
+secondaryBackgroundColor = "#345442"
+textColor = "#F2F5E9"
+primaryColor = "#D8E8BC"
+borderColor = "#496050"
+headingFont = "sans-serif"
