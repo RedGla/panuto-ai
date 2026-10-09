@@ -50,6 +50,8 @@ The app preserves manual entry when startup or inference fails.
   after restarting the app all pass.
 - One demo activity with two real-model versions is seeded only if storage is empty.
 - Environment smoke check passes with both OCR languages and the real model.
+- Fresh GitHub clone at b99a37c passes a clean virtual-environment install, all
+  49 tests, real-model environment smoke check, UI startup, and real-model analysis.
 - Local Streamlit health endpoint reports ok.
 
 Detailed synthetic-source evidence: [docs/verification](docs/verification).

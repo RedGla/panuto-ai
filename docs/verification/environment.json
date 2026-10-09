@@ -20,5 +20,8 @@
   "model_reload_smoke_s": 8.31,
   "first_setup_smoke_timeout_s": 120.07,
   "physical_wifi_off": false,
-  "dataset_independent": false
+  "dataset_independent": false,
+  "fresh_clone_verified": true,
+  "fresh_clone_source_commit": "b99a37c5b864bb702b077cf43360e6fc7a4bfad7",
+  "fresh_clone_smoke_s": 1.59
 }
