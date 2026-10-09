@@ -1,0 +1,10 @@
+{
+  "input": "Sa susunod na meeting na lang yung quiz sa Chemistry.",
+  "announcement_date": "2026-10-12",
+  "expected": {
+    "subject": "Chemistry",
+    "activity": "quiz",
+    "deadline_text": "Sa susunod na meeting",
+    "deadline_time": null
+  }
+}

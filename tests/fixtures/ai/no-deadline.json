@@ -1,0 +1,11 @@
+{
+  "input": "Math worksheet: answer problems 1 to 5. Individual submission as PDF on LMS.",
+  "announcement_date": "2026-10-12",
+  "expected": {
+    "subject": "Math",
+    "activity": "worksheet",
+    "deadline_text": null,
+    "submission_format": "PDF",
+    "submission_platform": "LMS"
+  }
+}

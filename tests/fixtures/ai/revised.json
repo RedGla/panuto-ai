@@ -1,0 +1,15 @@
+{
+  "input": "Update po sa ML activity: revised na yung instructions. Moved na yung deadline sa Oct 23, 11:59 PM. Dataset minimum 500 rows na, tapos kailangan may data dictionary. Same pa rin, group of 3, PDF sa LMS.",
+  "announcement_date": "2026-10-14",
+  "expected": {
+    "subject": "ML",
+    "deadline_time": "23:59",
+    "group_size": 3,
+    "submission_format": "PDF",
+    "submission_platform": "LMS",
+    "requirement_numbers": [
+      500
+    ],
+    "is_revision": true
+  }
+}

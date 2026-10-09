@@ -1,0 +1,10 @@
+{
+  "input": "Bukas na po ang submission ng lab report sa Physics, ipasa sa email.",
+  "announcement_date": "2026-10-12",
+  "expected": {
+    "subject": "Physics",
+    "activity": "lab report",
+    "submission_platform": "email",
+    "is_revision": false
+  }
+}

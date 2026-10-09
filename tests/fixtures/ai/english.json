@@ -1,0 +1,12 @@
+{
+  "input": "Submit the Biology lab report by October 16 at 5:00 PM. Work in groups of 2. Upload a PDF to Moodle.",
+  "announcement_date": "2026-10-12",
+  "expected": {
+    "subject": "Biology",
+    "activity": "lab report",
+    "deadline_time": "17:00",
+    "group_size": 2,
+    "submission_format": "PDF",
+    "submission_platform": "Moodle"
+  }
+}

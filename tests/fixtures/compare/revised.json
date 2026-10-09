@@ -1,0 +1,16 @@
+{
+  "deadline": "2026-10-23",
+  "group_size": 3,
+  "submission_format": "PDF",
+  "submission_platform": "LMS",
+  "requirements": [
+    {
+      "text": "dataset minimum 500 rows",
+      "number": 500
+    },
+    {
+      "text": "include data dictionary",
+      "number": null
+    }
+  ]
+}

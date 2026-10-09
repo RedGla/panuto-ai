@@ -1,0 +1,11 @@
+{
+  "input": "Physics problem set due 10/16. Submit a PDF to LMS. By group of 4.",
+  "announcement_date": "2026-10-12",
+  "expected": {
+    "subject": "Physics",
+    "deadline_text": "10/16",
+    "group_size": 4,
+    "submission_format": "PDF",
+    "submission_platform": "LMS"
+  }
+}

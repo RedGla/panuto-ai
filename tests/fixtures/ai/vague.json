@@ -1,0 +1,13 @@
+{
+  "input": "Computer Science project next week na. GitHub link ang submission. Minimum 3 features.",
+  "announcement_date": "2026-10-12",
+  "expected": {
+    "subject": "Computer Science",
+    "activity": "project",
+    "deadline_text": "next week",
+    "requirement_numbers": [
+      3
+    ],
+    "is_revision": false
+  }
+}

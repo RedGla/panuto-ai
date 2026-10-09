@@ -1,0 +1,15 @@
+{
+  "input": "Guys, yung activity sa ML, next Friday na deadline. By group of 3. PDF submission sa LMS. Yung dataset kailangan minimum 300 rows.",
+  "announcement_date": "2026-10-12",
+  "expected": {
+    "subject": "ML",
+    "deadline_text": "next Friday",
+    "group_size": 3,
+    "submission_format": "PDF",
+    "submission_platform": "LMS",
+    "requirement_numbers": [
+      300
+    ],
+    "is_revision": false
+  }
+}

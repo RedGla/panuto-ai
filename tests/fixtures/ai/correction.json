@@ -1,0 +1,12 @@
+{
+  "input": "Sa Chemistry lab report, by group of 2 pala. Revised na: DOCX sa email, October 20 deadline.",
+  "announcement_date": "2026-10-14",
+  "expected": {
+    "subject": "Chemistry",
+    "activity": "lab report",
+    "group_size": 2,
+    "submission_format": "DOCX",
+    "submission_platform": "email",
+    "is_revision": true
+  }
+}

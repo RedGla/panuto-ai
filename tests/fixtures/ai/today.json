@@ -1,0 +1,11 @@
+{
+  "input": "Ngayon na ang essay sa History. Individual. Sa email ipasa.",
+  "announcement_date": "2026-10-12",
+  "expected": {
+    "subject": "History",
+    "activity": "essay",
+    "deadline_time": null,
+    "submission_platform": "email",
+    "is_revision": false
+  }
+}
