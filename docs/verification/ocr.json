@@ -1,0 +1,35 @@
+[
+  {
+    "file": "original.png",
+    "text": "Guys, yung activity sa ML, next Friday na deadline. By group of 3. PDF submission sa LMS. Yung dataset kailangan minimum 300 rows.",
+    "confidence": 95.73913043478261,
+    "warnings": []
+  },
+  {
+    "file": "revised.png",
+    "text": "Update po sa ML activity: revised na yung instructions. Moved na yung deadline sa Oct 23, 11:59 PM. Dataset minimum 500 rows na, tapos kailangan may data dictionary. Same pa rin, group of 3, PDF sa LMS.",
+    "confidence": 95.4054054054054,
+    "warnings": []
+  },
+  {
+    "file": "text.pdf",
+    "text": "Guys, yung activity sa ML, next Friday na deadline. By group of 3. PDF\nsubmission sa LMS. Yung dataset kailangan minimum 300 rows.",
+    "confidence": null,
+    "warnings": []
+  },
+  {
+    "file": "scanned.pdf",
+    "text": "Guys, yung activity sa ML, next Friday na deadline. By group of 3. PDF submission sa LMS. Yung dataset kailangan minimum 300 rows.",
+    "confidence": 95.65217391304348,
+    "warnings": []
+  },
+  {
+    "file": "blank.png",
+    "text": "",
+    "confidence": 0.0,
+    "warnings": [
+      "OCR confidence below 60. Correct source text before analysis.",
+      "Little or no readable text. Paste or correct the announcement."
+    ]
+  }
+]

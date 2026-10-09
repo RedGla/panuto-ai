@@ -1,0 +1,24 @@
+{
+  "verified_date": "2026-10-10",
+  "python": "3.12.5",
+  "ollama": "0.40.2",
+  "model": "qwen3:1.7b",
+  "model_id": "8f68893c685c",
+  "runner": "llamacpp",
+  "processor": "100% GPU",
+  "cpu": "AMD Ryzen 5 4600H",
+  "gpu": "NVIDIA GeForce GTX 1650",
+  "physical_memory_bytes": 7916032000,
+  "tesseract": "5.4.0.20240606",
+  "languages": [
+    "eng",
+    "fil"
+  ],
+  "automated_tests": 49,
+  "selected_field_matches": 51,
+  "selected_field_labels": 54,
+  "model_reload_smoke_s": 8.31,
+  "first_setup_smoke_timeout_s": 120.07,
+  "physical_wifi_off": false,
+  "dataset_independent": false
+}

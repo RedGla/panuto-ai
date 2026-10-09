@@ -1,0 +1,283 @@
+{
+  "dataset": "Synthetic hand-labeled fixtures, not real student announcements",
+  "samples": 10,
+  "valid": 10,
+  "field_accuracy": {
+    "subject": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    },
+    "activity": {
+      "correct": 7,
+      "total": 7,
+      "accuracy": 1.0
+    },
+    "group_size": {
+      "correct": 5,
+      "total": 5,
+      "accuracy": 1.0
+    },
+    "submission_format": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0
+    },
+    "submission_platform": {
+      "correct": 8,
+      "total": 8,
+      "accuracy": 1.0
+    },
+    "is_revision": {
+      "correct": 4,
+      "total": 6,
+      "accuracy": 0.6666666666666666
+    },
+    "deadline_time": {
+      "correct": 4,
+      "total": 4,
+      "accuracy": 1.0
+    },
+    "deadline_text": {
+      "correct": 4,
+      "total": 5,
+      "accuracy": 0.8
+    },
+    "requirement_numbers": {
+      "correct": 3,
+      "total": 3,
+      "accuracy": 1.0
+    }
+  },
+  "attempt_mean_latency_s": 1.5658228600001167,
+  "successful_mean_latency_s": 1.5658228600001167,
+  "results": [
+    {
+      "file": "correction.json",
+      "valid": true,
+      "latency_s": 3.961931999998342,
+      "errors": [],
+      "task": {
+        "subject": "Chemistry",
+        "activity": "lab report",
+        "deadline_text": "October 20",
+        "deadline_time": null,
+        "submission_platform": "email",
+        "submission_format": "DOCX",
+        "group_size": 2,
+        "requirements": [
+          {
+            "text": "Revised na",
+            "number": null
+          }
+        ],
+        "extra_instructions": null,
+        "is_revision": true
+      }
+    },
+    {
+      "file": "english.json",
+      "valid": true,
+      "latency_s": 1.3327605000013136,
+      "errors": [],
+      "task": {
+        "subject": "Biology",
+        "activity": "lab report",
+        "deadline_text": "October 16",
+        "deadline_time": "17:00",
+        "submission_platform": "Moodle",
+        "submission_format": "PDF",
+        "group_size": 2,
+        "requirements": [
+          {
+            "text": "Upload a PDF",
+            "number": null
+          }
+        ],
+        "extra_instructions": null,
+        "is_revision": false
+      }
+    },
+    {
+      "file": "meeting.json",
+      "valid": true,
+      "latency_s": 1.0390873000033025,
+      "errors": [],
+      "task": {
+        "subject": "Chemistry",
+        "activity": "quiz",
+        "deadline_text": "Sa susunod na meeting",
+        "deadline_time": null,
+        "submission_platform": null,
+        "submission_format": null,
+        "group_size": null,
+        "requirements": [],
+        "extra_instructions": null,
+        "is_revision": true
+      }
+    },
+    {
+      "file": "no-deadline.json",
+      "valid": true,
+      "latency_s": 1.4398944999993546,
+      "errors": [],
+      "task": {
+        "subject": "Math",
+        "activity": "worksheet",
+        "deadline_text": "answer problems 1 to 5",
+        "deadline_time": null,
+        "submission_platform": "LMS",
+        "submission_format": "PDF",
+        "group_size": null,
+        "requirements": [
+          {
+            "text": "answer problems 1 to 5",
+            "number": null
+          },
+          {
+            "text": "individual submission",
+            "number": null
+          }
+        ],
+        "extra_instructions": null,
+        "is_revision": false
+      }
+    },
+    {
+      "file": "numeric.json",
+      "valid": true,
+      "latency_s": 1.5408538000010594,
+      "errors": [],
+      "task": {
+        "subject": "Physics",
+        "activity": "problem set",
+        "deadline_text": "10/16",
+        "deadline_time": null,
+        "submission_platform": "LMS",
+        "submission_format": "PDF",
+        "group_size": 4,
+        "requirements": [
+          {
+            "text": "Submit a PDF",
+            "number": null
+          },
+          {
+            "text": "By group of 4",
+            "number": 4
+          }
+        ],
+        "extra_instructions": null,
+        "is_revision": false
+      }
+    },
+    {
+      "file": "original.json",
+      "valid": true,
+      "latency_s": 1.4082409000002372,
+      "errors": [],
+      "task": {
+        "subject": "ML",
+        "activity": "activity",
+        "deadline_text": "next Friday",
+        "deadline_time": null,
+        "submission_platform": "LMS",
+        "submission_format": "PDF",
+        "group_size": 3,
+        "requirements": [
+          {
+            "text": "dataset kailangan minimum 300 rows",
+            "number": 300
+          }
+        ],
+        "extra_instructions": null,
+        "is_revision": true
+      }
+    },
+    {
+      "file": "revised.json",
+      "valid": true,
+      "latency_s": 1.6786520999994536,
+      "errors": [],
+      "task": {
+        "subject": "ML",
+        "activity": "activity",
+        "deadline_text": "Oct 23",
+        "deadline_time": "23:59",
+        "submission_platform": "LMS",
+        "submission_format": "PDF",
+        "group_size": 3,
+        "requirements": [
+          {
+            "text": "Dataset minimum 500 rows",
+            "number": 500
+          },
+          {
+            "text": "Include a data dictionary",
+            "number": null
+          }
+        ],
+        "extra_instructions": null,
+        "is_revision": true
+      }
+    },
+    {
+      "file": "today.json",
+      "valid": true,
+      "latency_s": 1.0586827999977686,
+      "errors": [],
+      "task": {
+        "subject": "History",
+        "activity": "essay",
+        "deadline_text": "Ngayon",
+        "deadline_time": null,
+        "submission_platform": "email",
+        "submission_format": null,
+        "group_size": null,
+        "requirements": [],
+        "extra_instructions": null,
+        "is_revision": false
+      }
+    },
+    {
+      "file": "tomorrow.json",
+      "valid": true,
+      "latency_s": 1.0134780000007595,
+      "errors": [],
+      "task": {
+        "subject": "Physics",
+        "activity": "lab report",
+        "deadline_text": "Bukas",
+        "deadline_time": null,
+        "submission_platform": "email",
+        "submission_format": null,
+        "group_size": null,
+        "requirements": [],
+        "extra_instructions": null,
+        "is_revision": false
+      }
+    },
+    {
+      "file": "vague.json",
+      "valid": true,
+      "latency_s": 1.1846466999995755,
+      "errors": [],
+      "task": {
+        "subject": "Computer Science",
+        "activity": "project",
+        "deadline_text": "next week",
+        "deadline_time": null,
+        "submission_platform": "GitHub",
+        "submission_format": null,
+        "group_size": null,
+        "requirements": [
+          {
+            "text": "Minimum 3 features",
+            "number": 3
+          }
+        ],
+        "extra_instructions": null,
+        "is_revision": true
+      }
+    }
+  ]
+}

@@ -140,5 +140,27 @@ def test_deadline_hallucination_is_rejected(monkeypatch):
 
 def test_invalid_time_is_rejected(monkeypatch):
     monkeypatch.setattr(extraction,"_chat",lambda messages: json.dumps(llm_task(deadline_time="25:00")))
-    result = extraction.extract_task("Deadline next Friday")
+    result = extraction.extract_task("Deadline next Friday at 25:00")
     assert not result.valid
+
+def test_deadline_preserves_source_capitalization(monkeypatch):
+    monkeypatch.setattr(extraction,"_chat",lambda messages: json.dumps(llm_task(deadline_text="next friday")))
+    result = extraction.extract_task("Deadline next Friday")
+    assert result.valid and result.task["deadline_text"] == "next Friday"
+
+@pytest.mark.parametrize("clock,expected", [("11:59 PM","23:59"),("12:00 AM","00:00"),("12:00 PM","12:00")])
+def test_explicit_clock_normalization(monkeypatch,clock,expected):
+    monkeypatch.setattr(extraction,"_chat",lambda messages: json.dumps(llm_task(deadline_time=clock)))
+    result = extraction.extract_task("Deadline next Friday at " + clock)
+    assert result.valid and result.task["deadline_time"] == expected
+
+def test_absent_clock_cannot_be_invented(monkeypatch):
+    monkeypatch.setattr(extraction,"_chat",lambda messages: json.dumps(llm_task(deadline_time="23:00")))
+    result = extraction.extract_task("Deadline next Friday")
+    assert result.valid and result.task["deadline_time"] is None
+
+def test_numeric_date_is_not_clock(monkeypatch):
+    monkeypatch.setattr(extraction,"_chat",lambda messages: json.dumps(
+        llm_task(deadline_text="10/16",deadline_time="10:16")))
+    result = extraction.extract_task("Deadline 10/16")
+    assert result.valid and result.task["deadline_time"] is None

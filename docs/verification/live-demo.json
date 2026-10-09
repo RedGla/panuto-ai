@@ -1,0 +1,119 @@
+{
+  "original": {
+    "task": {
+      "subject": "ML",
+      "activity": "activity",
+      "deadline_text": "next Friday",
+      "deadline_time": null,
+      "submission_platform": "LMS",
+      "submission_format": "PDF",
+      "group_size": 3,
+      "requirements": [
+        {
+          "text": "Yung dataset kailangan minimum 300 rows",
+          "number": 300
+        }
+      ],
+      "extra_instructions": null,
+      "is_revision": true,
+      "deadline": "2026-10-23",
+      "needs_date_confirmation": true,
+      "source_id": "efc622e4e8c14450a9629b5c287d05f5"
+    },
+    "valid": true,
+    "errors": [],
+    "raw_output": "{\"subject\": \"ML\", \"activity\": \"activity\", \"deadline_text\": \"next Friday\", \"deadline_time\": null, \"submission_platform\": \"LMS\", \"submission_format\": \"PDF\", \"group_size\": 3, \"requirements\": [{\"text\": \"Yung dataset kailangan minimum 300 rows\", \"number\": 300}], \"extra_instructions\": null, \"is_revision\": true}",
+    "latency_s": 1.7343929999988177,
+    "date_reason": "'Next' weekday is ambiguous. Confirm the intended date."
+  },
+  "revised": {
+    "task": {
+      "subject": "ML",
+      "activity": "activity",
+      "deadline_text": "Oct 23",
+      "deadline_time": "23:59",
+      "submission_platform": "LMS",
+      "submission_format": "PDF",
+      "group_size": 3,
+      "requirements": [
+        {
+          "text": "Dataset minimum 500 rows",
+          "number": 500
+        },
+        {
+          "text": "Include a data dictionary",
+          "number": null
+        }
+      ],
+      "extra_instructions": null,
+      "is_revision": true,
+      "deadline": "2026-10-23",
+      "needs_date_confirmation": false,
+      "source_id": "5162a56952d9487d982fb4860a336e64"
+    },
+    "valid": true,
+    "errors": [],
+    "raw_output": "{\"subject\": \"ML\", \"activity\": \"activity\", \"deadline_text\": \"Oct 23\", \"deadline_time\": \"23:59\", \"submission_platform\": \"LMS\", \"submission_format\": \"PDF\", \"group_size\": 3, \"requirements\": [{\"text\": \"Dataset minimum 500 rows\", \"number\": 500}, {\"text\": \"Include a data dictionary\", \"number\": null}], \"extra_instructions\": null, \"is_revision\": true}",
+    "latency_s": 1.933679599998868,
+    "date_reason": "Resolved explicit date."
+  },
+  "versions": [
+    {
+      "version": 1,
+      "task": {
+        "subject": "ML",
+        "activity": "activity",
+        "deadline_text": "next Friday",
+        "deadline_time": null,
+        "submission_platform": "LMS",
+        "submission_format": "PDF",
+        "group_size": 3,
+        "extra_instructions": null,
+        "is_revision": true,
+        "requirements": [
+          {
+            "text": "Yung dataset kailangan minimum 300 rows",
+            "number": 300
+          }
+        ],
+        "deadline": "2026-10-16",
+        "needs_date_confirmation": false,
+        "source_id": "efc622e4e8c14450a9629b5c287d05f5"
+      },
+      "source_id": "efc622e4e8c14450a9629b5c287d05f5",
+      "source_text": "Guys, yung activity sa ML, next Friday na deadline. By group of 3. PDF submission sa LMS. Yung dataset kailangan minimum 300 rows.\n",
+      "created_at": "2026-10-09 16:43:18"
+    },
+    {
+      "version": 2,
+      "task": {
+        "subject": "ML",
+        "activity": "activity",
+        "deadline_text": "Oct 23",
+        "deadline_time": "23:59",
+        "submission_platform": "LMS",
+        "submission_format": "PDF",
+        "group_size": 3,
+        "extra_instructions": null,
+        "is_revision": true,
+        "requirements": [
+          {
+            "text": "Dataset minimum 500 rows",
+            "number": 500.0
+          },
+          {
+            "text": "Include a data dictionary",
+            "number": null
+          }
+        ],
+        "deadline": "2026-10-23",
+        "needs_date_confirmation": false,
+        "source_id": "5162a56952d9487d982fb4860a336e64"
+      },
+      "source_id": "5162a56952d9487d982fb4860a336e64",
+      "source_text": "Update po sa ML activity: revised na yung instructions. Moved na yung deadline sa Oct 23, 11:59 PM. Dataset minimum 500 rows na, tapos kailangan may data dictionary. Same pa rin, group of 3, PDF sa LMS.",
+      "created_at": "2026-10-09 16:43:21"
+    }
+  ],
+  "physical_wifi_off": false
+}

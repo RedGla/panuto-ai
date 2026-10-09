@@ -56,6 +56,7 @@ No task is saved just by analyzing or matching.
 - `ingestion.py`: image OCR, embedded PDF text, scanned-page OCR, pasted text.
 - `extraction.py` / `prompts.py`: Qwen3 1.7B through Ollama's localhost HTTP API.
   Requests use schema output, `think=false`, temperature zero, and one validation retry.
+  Python normalizes explicit AM/PM clocks and clears clock values when the source has no clock.
 - `dates.py`: conservative Python calendar resolution. Ambiguous phrases require confirmation.
 - `compare.py`: deterministic matching suggestions and requirement/field diffs.
 - `db.py`: transactional SQLite writes with an immutable source snapshot per version.
@@ -74,7 +75,7 @@ python scripts/check_env.py --smoke
 python scripts/measure.py --output RESULTS.json
 ```
 
-Unit and UI tests mock inference and OCR; they prove integration behavior,
+Automated unit and UI tests mock inference and OCR; they prove integration behavior,
 not model quality or OCR accuracy. The measurement script always calls the real
 model and evaluates 10 synthetic, hand-labeled fixtures. Replace or supplement
 these with real consented samples before quoting accuracy in a pitch.

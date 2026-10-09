@@ -1,49 +1,63 @@
 # Verification results
 
-Verified on October 10, 2026, with Python 3.12.5 on Windows.
+Verified October 10, 2026, on this Windows PC.
+Python 3.12.5; Ollama 0.40.2; Qwen3 1.7B (model ID 8f68893c685c),
+llamacpp runner on the GTX 1650 GPU; Ryzen 5 4600H; 7,916,032,000 bytes of physical memory.
+Tesseract 5.4.0 with English and Filipino tessdata_fast models.
 
-## Completed
+## Real model measurements
 
-- 43 automated tests pass.
-- Streamlit UI tests cover review, explicit confirmation, revision diffs and saving,
-  version history persistence after restart, manual fallback, development mode,
-  and refusal of development stubs in demo mode.
-- Date tests cover relative dates, absent anchors, named and numeric dates,
-  next-Friday ambiguity, invalid dates, ranges, and negation.
-- Comparison tests cover the 300-to-500 dataset revision, added requirements,
-  unchanged submission fields, normalization, and matching suggestions.
-- SQLite tests cover round trips, version history, sorted unknown deadlines,
-  manual edit auditing, and transaction rollback.
-- Extraction tests mock only the Ollama boundary to verify schema validation,
-  bounded retry, stopped-server handling, empty/large input, invalid times,
-  and rejection of non-verbatim deadline phrases.
-- Ingestion tests verify embedded PDF text and source retention, invalid input,
-  and mocked OCR paths for screenshots, scanned PDFs, and blank images.
-- Python dependency check reports no broken requirements.
-- Local Streamlit server health endpoint reports `ok`.
+- Valid schema extraction: 10/10 synthetic samples.
+- Mean warm extraction latency: 1.57 seconds.
+- Exact matches on selected labeled fields: 51/54. This is not full-task accuracy.
+- Every label counts independently; requirement_numbers compares numeric quantities only.
+- The same samples were used during prompt tuning, and some overlap with few-shot examples.
+  These measurements are development checks, not an independent accuracy benchmark.
 
-## Not yet verified
+| Field | Exact matches |
+|---|---|
+| subject | 10/10 |
+| activity | 7/7 |
+| group_size | 5/5 |
+| submission_format | 6/6 |
+| submission_platform | 8/8 |
+| is_revision | 4/6 |
+| deadline_time | 4/4 |
+| deadline_text | 4/5 |
+| requirement_numbers | 3/3 |
 
-The current PC has no installed Ollama or Tesseract detected, and nothing listens
-on localhost:11434. The environment checker correctly reports those failures.
-Real model accuracy, real model latency, actual Tesseract OCR accuracy, and
-Wi-Fi-off operation have not been measured. Browser visual inspection was
-unavailable in this execution environment; UI behavior was tested through
-Streamlit AppTest.
+Full measured outputs: [RESULTS.json](RESULTS.json).
 
-The 10 AI fixtures are synthetic hand-labeled examples, not real student data.
-No accuracy percentage or inference timing should be quoted from mocked tests.
+## Startup behavior
 
-## Remaining gates
+The first-ever setup request timed out at 120.07 seconds; server logs showed 80.72
+seconds just to initialize the model runner. The next warm smoke extraction passed
+in 2.03 seconds. After explicitly unloading and reloading the model, the smoke
+check passed in 8.31 seconds. Pre-warm the model before the presentation.
+The app preserves manual entry when startup or inference fails.
 
-1. Install runtime prerequisites and Filipino OCR data, then run
-   `python scripts/check_env.py --smoke`.
-2. Run `python scripts/measure.py` against the real model. Record successful
-   extraction rate, labeled field scores, successful inference latency, hardware,
-   Ollama/model version, and the exact sample set.
-3. Test real screenshots and scanned PDFs with Tesseract.
-4. Complete fresh-clone and Wi-Fi-off verification on the selected demo laptop.
-5. Perform timed rehearsals and save a backup recording.
+## Completed acceptance checks
 
-Checkpoint tags and `demo-v1` are intentionally absent until their acceptance
-conditions pass.
+- 49 automated tests pass, including schema retry, source grounding, explicit
+  clock normalization, absent-clock protection, date ambiguity, matching, SQLite
+  transactions, confirmation, history, manual fallback, and demo/stub refusal.
+- Real screenshot OCR passes on original.png and revised.png, with mean word
+  confidences of 95.74 and 95.41 respectively. These are synthetic screenshots.
+- Real text PDF and scanned PDF ingestion pass; blank-image warnings pass.
+- Real inference through Streamlit AppTest: original announcement, explicit
+  October 16 date confirmation, save, revised screenshot OCR, changed deadline
+  and dataset quantity, added data dictionary, confirmed update, and persistence
+  after restarting the app all pass.
+- One demo activity with two real-model versions is seeded only if storage is empty.
+- Environment smoke check passes with both OCR languages and the real model.
+- Local Streamlit health endpoint reports ok.
+
+Detailed synthetic-source evidence: [docs/verification](docs/verification).
+
+## Remaining human-run gates
+
+Physical Wi-Fi-off operation, timed five-minute rehearsals, and backup screen
+recording remain unverified. Browser visual inspection was unavailable; UI behavior
+was exercised through Streamlit AppTest with real model and OCR boundaries.
+No demo-v1 or offline checkpoint tag is published before those gates pass.
+See [demo checklist](docs/demo-checklist.md).

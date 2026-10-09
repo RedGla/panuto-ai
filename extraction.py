@@ -2,6 +2,7 @@
 import json
 import re
 import time
+from datetime import datetime
 from urllib.request import Request, build_opener, ProxyHandler
 from urllib.error import URLError
 from jsonschema import validate, ValidationError
@@ -38,11 +39,24 @@ def extract_task(text, announcement_date=None):
             raw = _chat(messages)
             task = json.loads(raw)
             validate(task, LLM_SCHEMA)
-            if task["deadline_text"] and task["deadline_text"].casefold() not in text.casefold():
-                raise ValueError("deadline_text must copy a verbatim phrase from the announcement.")
+            if task["deadline_text"]:
+                match = re.search(re.escape(task["deadline_text"]), text, re.IGNORECASE)
+                if not match:
+                    raise ValueError("deadline_text must copy a verbatim phrase from the announcement.")
+                task["deadline_text"] = match.group(0)
+            # A date or assignment quantity is not a clock time.
+            clock_in_source = re.search(
+                r"\b\d{1,2}:\d{2}\s*(?:[ap]\.?m\.?)?\b|\b\d{1,2}\s*[ap]\.?m\.?\b",
+                text, re.IGNORECASE)
+            if not clock_in_source:
+                task["deadline_time"] = None
             if task["deadline_time"] and not re.fullmatch(
                     r"(?:[01]\d|2[0-3]):[0-5]\d", task["deadline_time"]):
-                raise ValueError("deadline_time must be HH:MM in 24-hour time.")
+                try:
+                    clock = task["deadline_time"].upper().replace(" ", "")
+                    task["deadline_time"] = datetime.strptime(clock, "%I:%M%p").strftime("%H:%M")
+                except ValueError:
+                    raise ValueError("deadline_time must be HH:MM or an explicit AM/PM time.")
             return ExtractionResult(task, True, [], raw, time.perf_counter() - started)
         except (json.JSONDecodeError, ValidationError, ValueError) as exc:
             error = str(exc).split("\n")[0][:300]
