@@ -50,6 +50,26 @@ The original source is preserved even if you correct its OCR text before analysi
 Edits in the review form apply to the save preview only after **Review changes**.
 No task is saved just by analyzing or matching.
 
+## Manage activities and protect your data
+
+Dashboard supports status, priority, personal notes, search, subject/status/due-date filters,
+deadline or priority ordering, and archive/unarchive. Editing saved instructions requires
+confirmation and adds a source-backed version. **Add task manually** works without Ollama.
+
+Export the filtered list to CSV or import its deadlines into a calendar with the ICS download.
+Calendar dates use your calendar's local timezone; reminder notifications depend on that
+calendar. Panuto shows overdue and due-today counts while open.
+
+Use **Backup & setup** to prepare a portable ZIP containing activities, history, source text,
+available original files, and organization. Recovery validates the backup and adds copies
+after confirmation; it never replaces existing activities. Recovering twice creates duplicates.
+Backups are limited to 50 MB. For larger collections, stop the app and copy the entire data
+directory. This tab also checks local prerequisites and provides usage help.
+
+Existing databases upgrade additively. Extracted announcement fields and the original contract
+stay separate from personal status and notes. See [production features](docs/production-features.md)
+for behavior, limits, inspirations, and remaining production work.
+
 ## Architecture
 
 - `contracts.py`: schema and shared dataclasses from the team plan.
@@ -100,3 +120,5 @@ rehearsals, the cut list, and the five-minute presentation. See
 [demo checklist](docs/demo-checklist.md) for remaining human-run gates.
 Do not label a release `demo-v1` until the demo laptop passes a fresh-clone,
 real-model, Wi-Fi-off run.
+
+The [submission draft](docs/submission-draft.md) records known disclosures and missing video, team, and public-repository information from the organizer slides.

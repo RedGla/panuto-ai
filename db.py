@@ -2,7 +2,6 @@
 import json
 import sqlite3
 from pathlib import Path
-from datetime import date
 _DB_PATH = Path("data/panuto.db")
 
 def _connect():
@@ -28,14 +27,19 @@ def init_db(path="data/panuto.db"):
             version INTEGER NOT NULL, task_json TEXT NOT NULL,
             source_id TEXT NOT NULL REFERENCES sources(source_id), source_text TEXT NOT NULL,
             created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, UNIQUE(task_id, version));
+
+        CREATE TABLE IF NOT EXISTS task_state(
+            task_id INTEGER PRIMARY KEY REFERENCES tasks(id),
+            status TEXT NOT NULL DEFAULT 'To do' CHECK(status IN ('To do','In progress','Done')),
+            priority TEXT NOT NULL DEFAULT 'Normal' CHECK(priority IN ('Low','Normal','High')),
+            notes TEXT NOT NULL DEFAULT '',
+            archived INTEGER NOT NULL DEFAULT 0 CHECK(archived IN (0,1)),
+            updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
         """)
 
 def _payload(task):
-    task = {key:value for key,value in task.items() if key != "id"}
-    if task.get("deadline"):
-        date.fromisoformat(task["deadline"])
-    if not task.get("source_id"):
-        raise ValueError("A confirmed task must have a source.")
+    from validation import validate_task
+    task = validate_task(task)
     return json.dumps(task, ensure_ascii=False), task
 
 def _source(connection, source):
@@ -107,3 +111,69 @@ def list_versions(task_id):
             "SELECT * FROM task_versions WHERE task_id=? ORDER BY version", (task_id,)).fetchall()
     return [dict(version=row["version"], task=json.loads(row["task_json"]), source_id=row["source_id"],
                  source_text=row["source_text"], created_at=row["created_at"]) for row in rows]
+
+# Personal organization stays separate from extracted announcement fields.
+def get_states():
+    with _connect() as connection:
+        rows = connection.execute("SELECT * FROM task_state").fetchall()
+    return {row["task_id"]: dict(row) for row in rows}
+
+
+def set_state(task_id, status="To do", priority="Normal", notes="", archived=False):
+    from organizer import validate_state
+    state = validate_state(dict(status=status, priority=priority, notes=notes, archived=archived))
+    with _connect() as connection:
+        if not connection.execute("SELECT id FROM tasks WHERE id=?", (task_id,)).fetchone():
+            raise KeyError(f"Task {task_id} does not exist.")
+        connection.execute("""
+            INSERT INTO task_state(task_id,status,priority,notes,archived)
+            VALUES(?,?,?,?,?) ON CONFLICT(task_id) DO UPDATE SET
+            status=excluded.status,priority=excluded.priority,notes=excluded.notes,
+            archived=excluded.archived,updated_at=CURRENT_TIMESTAMP
+        """, (task_id, state["status"], state["priority"], state["notes"], int(state["archived"])))
+
+
+def export_snapshot():
+    """Read all tables in one consistent transaction."""
+    with _connect() as connection:
+        connection.execute("BEGIN")
+        return {table: [dict(row) for row in connection.execute(f"SELECT * FROM {table}")]
+                for table in ("sources", "tasks", "task_versions", "task_state")}
+
+
+def import_snapshot(snapshot):
+    """Add a validated backup without replacing existing activities."""
+    from uuid import uuid4
+    source_map = {source["source_id"]: uuid4().hex for source in snapshot["sources"]}
+    with _connect() as connection:
+        for source in snapshot["sources"]:
+            connection.execute("INSERT INTO sources VALUES(?,?,?,?,?,?,?)", (
+                source_map[source["source_id"]], source["kind"], source["text"],
+                source.get("original_path"), source.get("announcement_date"),
+                source.get("ocr_confidence"), json.dumps(source["warnings"])))
+        task_map = {}
+        for item in snapshot["tasks"]:
+            task = dict(item["task"])
+            task["source_id"] = source_map[task["source_id"]]
+            payload, task = _payload(task)
+            cursor = connection.execute(
+                "INSERT INTO tasks(task_json,subject,activity,deadline) VALUES(?,?,?,?)",
+                (payload, task.get("subject"), task.get("activity"), task.get("deadline")))
+            task_map[item["id"]] = cursor.lastrowid
+            for version in item["versions"]:
+                version_task = dict(version["task"])
+                version_task["source_id"] = source_map[version_task["source_id"]]
+                connection.execute("""
+                    INSERT INTO task_versions(task_id,version,task_json,source_id,source_text,created_at)
+                    VALUES(?,?,?,?,?,?)
+                """, (cursor.lastrowid, version["version"], json.dumps(version_task, ensure_ascii=False),
+                      version_task["source_id"], version["source_text"], version["created_at"]))
+            state = item["state"]
+            connection.execute("""
+                INSERT INTO task_state(task_id,status,priority,notes,archived) VALUES(?,?,?,?,?)
+            """, (cursor.lastrowid, state["status"], state["priority"], state["notes"], int(state["archived"])))
+    return len(task_map)
+
+
+def source_directory():
+    return _DB_PATH.parent / "sources"

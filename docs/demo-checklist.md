@@ -29,3 +29,12 @@ Run three timed five-minute rehearsals, including two with Wi-Fi off.
 Record one successful real-model run with Wi-Fi visibly off and store copies
 on two devices. Then tag the verified commit demo-v1.
 Checkpoint tags should reflect completed acceptance gates, not just implementation.
+
+## Submission context
+
+The supplied organizer slides require a public repository, a demo video and public
+X/LinkedIn video URL, team details, and disclosures for models, technologies, APIs,
+existing code/assets, and AI development tools. The repository remains private until
+the owner chooses to publish it. See submission-draft.md for known facts and missing
+items. Keep the five-minute live demo focused on the local extraction and revision
+loop; the stated judge Q&A lasts three additional minutes.

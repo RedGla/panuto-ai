@@ -63,3 +63,20 @@ recording remain unverified. Browser visual inspection was unavailable; UI behav
 was exercised through Streamlit AppTest with real model and OCR boundaries.
 No demo-v1 or offline checkpoint tag is published before those gates pass.
 See [demo checklist](docs/demo-checklist.md).
+
+## Offline product verification
+
+The product feature update passes 66 automated tests, including additive database
+initialization, organization persistence, filtering, confirmed instruction editing,
+archive recovery, CSV formula protection, calendar escaping and stable identifiers,
+backup confirmation, history/attachment recovery, and interrupted-recovery rollback.
+
+The real model and screenshot OCR demo pair was exercised again successfully through
+Streamlit AppTest after this update, including the original confirmation, revised
+deadline and requirements, save, and restart. Local setup checks and backup preparation
+also pass against the existing demo activity. Detailed evidence is in
+[product.json](docs/verification/product.json).
+
+Browser visual inspection and physical Wi-Fi-off proof remain unavailable. The
+earlier 10-sample development measurements are unchanged; no new independent accuracy
+claim is made.

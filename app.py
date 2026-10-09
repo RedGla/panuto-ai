@@ -11,7 +11,8 @@ from jsonschema import validate, ValidationError
 import db
 from contracts import LLM_SCHEMA
 from ingestion import ingest_file, ingest_text
-from pipeline import analyze
+from pipeline import analyze, blank_task
+from dashboard import render_dashboard, render_data_tools
 from compare import compare_tasks, find_matches
 
 st.set_page_config(page_title="Panuto AI", page_icon="📋", layout="centered")
@@ -145,14 +146,20 @@ def render_review():
     except (sqlite3.Error, OSError, ValueError, KeyError) as exc:
         st.error(f"Save failed. Review stays available: {exc}")
 
-new_tab, dashboard = st.tabs(["New announcement", "Dashboard"])
+new_tab, dashboard, data_tools = st.tabs(["New announcement", "Dashboard", "Backup & setup"])
 with new_tab:
     if st.session_state.get("notice"):
         st.success(st.session_state.pop("notice"))
+    if st.button("Add task manually"):
+        doc = ingest_text("Manually entered activity.")
+        st.session_state["source"] = doc
+        st.session_state.pop("reviewed", None)
+        st.session_state["analysis"] = dict(task=blank_task(doc.source_id), valid=True,
+            errors=[], latency_s=0, date_reason="Choose a deadline or leave it unknown.")
     with st.form("load_source"):
         mode = st.radio("Input", ["Paste text","Upload file"])
         text = st.text_area("Announcement text", height=150, max_chars=12000)
-        upload = st.file_uploader("Screenshot or PDF", type=["png","jpg","jpeg","pdf"])
+        upload = st.file_uploader("Screenshot or PDF", type=["png","jpg","jpeg","pdf"], help="Announcements: maximum 20 MB. Backups use a separate 50 MB limit.")
         posted = st.date_input("Announcement date", value=date.today())
         unknown_date = st.checkbox("Announcement date is unknown")
         load = st.form_submit_button("Load source")
@@ -180,6 +187,11 @@ with new_tab:
         source_view(doc)
         corrected = st.text_area("Correct source text before analysis", value=doc.text,
                                  key="source_text_" + doc.source_id, max_chars=12000)
+        if st.button("Enter task manually"):
+            st.session_state["analysis"] = dict(task=blank_task(doc.source_id), valid=True,
+                errors=[], latency_s=0, date_reason="Choose a deadline or leave it unknown.")
+            st.session_state.pop("reviewed", None)
+            st.rerun()
         if st.button("Analyze", disabled=not corrected.strip()):
             # Preserve original OCR/source text; extraction uses the student's corrected copy.
             from dataclasses import replace
@@ -191,15 +203,10 @@ with new_tab:
         render_review()
 
 with dashboard:
-    tasks = db.list_tasks()
-    if not tasks:
-        st.info("No saved activities yet. Review and confirm an announcement to start.")
-    for task in tasks:
-        title = f"{task.get('subject') or 'Unknown subject'} — {task.get('activity') or 'Untitled'}"
-        with st.expander(title + " · " + (task.get("deadline") or "Deadline unknown")):
-            st.json({key:value for key,value in task.items() if key != "source_id"}, expanded=True)
-            st.subheader("Version history")
-            for version in reversed(db.list_versions(task["id"])):
-                st.caption(f"Version {version['version']} · {version['created_at']} UTC")
-                st.json(version["task"], expanded=False)
-                st.text(version["source_text"])
+    try:
+        render_dashboard()
+    except (sqlite3.Error, OSError, ValueError) as exc:
+        st.error(f"Dashboard could not load: {exc}")
+
+with data_tools:
+    render_data_tools()

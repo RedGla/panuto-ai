@@ -1,0 +1,32 @@
+{
+  "automated_tests": 66,
+  "existing_demo_activities": 1,
+  "backup_activities": 1,
+  "backup_bytes": 820,
+  "setup_checks": [
+    {
+      "name": "Python",
+      "ok": true,
+      "detail": "3.12.5"
+    },
+    {
+      "name": "Storage",
+      "ok": true,
+      "detail": "Local database is readable."
+    },
+    {
+      "name": "Local model",
+      "ok": true,
+      "detail": "qwen3:1.7b is installed."
+    },
+    {
+      "name": "OCR",
+      "ok": true,
+      "detail": "English and Filipino data are ready."
+    }
+  ],
+  "real_model_ocr_revision_flow": true,
+  "browser_visual_inspection": false,
+  "physical_wifi_off": false,
+  "notes": "Local app startup and backup use the existing demo data; recovery tested in isolated storage."
+}
