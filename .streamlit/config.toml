@@ -7,26 +7,26 @@ gatherUsageStats = false
 
 [theme]
 base = "light"
-primaryColor = "#286248"
-backgroundColor = "#FAFAF5"
-secondaryBackgroundColor = "#F0F2E9"
-textColor = "#20382F"
-borderColor = "#DCDED5"
+primaryColor = "#18181B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F4F5"
+textColor = "#09090B"
+borderColor = "#E4E4E7"
 showWidgetBorder = true
-showSidebarBorder = false
-baseRadius = "12px"
-buttonRadius = "8px"
+showSidebarBorder = true
+baseRadius = "8px"
+buttonRadius = "6px"
 font = "sans-serif"
-headingFont = "serif"
+headingFont = "sans-serif"
 baseFontSize = 16
-headingFontSizes = ["2.8rem", "1.75rem", "1.3rem", "1.1rem"]
-headingFontWeights = [600, 600, 600, 600]
-linkColor = "#286248"
+headingFontSizes = ["2.25rem", "1.5rem", "1.25rem", "1rem"]
+headingFontWeights = [700, 600, 600, 600]
+linkColor = "#18181B"
 
 [theme.sidebar]
-backgroundColor = "#213C30"
-secondaryBackgroundColor = "#345442"
-textColor = "#F2F5E9"
-primaryColor = "#D8E8BC"
-borderColor = "#496050"
+backgroundColor = "#FAFAFA"
+secondaryBackgroundColor = "#F4F4F5"
+textColor = "#09090B"
+primaryColor = "#18181B"
+borderColor = "#E4E4E7"
 headingFont = "sans-serif"
